@@ -10,7 +10,7 @@ import SwiftUI
 //最初の画面
 struct ContentView: View {
     //let QuizData = QuizDataOriginal.shuffled()
-    var body: some View {
+    var body: some View{
         NavigationView{
             VStack{
                 Spacer()
@@ -18,7 +18,7 @@ struct ContentView: View {
                     .multilineTextAlignment(.center)
                     .font(.title)
                 Spacer()
-                NavigationLink(destination: QuizView(num:0)){
+                NavigationLink(destination: flowView()){
                     HStack {
                         Image(systemName: "play.circle")
                         Text("START")
@@ -38,13 +38,4 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-struct QuizView_Previews: PreviewProvider {
-    static var previews: some View {
-        QuizView(num:0)
-    }
-}
-struct Wrong_Previews: PreviewProvider {
-    static var previews: some View {
-        WrongView()
-    }
-}
+
