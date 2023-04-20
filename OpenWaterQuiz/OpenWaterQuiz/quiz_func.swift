@@ -17,19 +17,20 @@ struct QuizView:View{
             VStack{
                 Text("\(QuizData.quiestion)")
                         .padding(.vertical)
+                        .font(.title)
                 if QuizData.four_choice{
                     ForEach(QuizData.answer.indices){index in
                         Button(action: {
                             onAnswerSelected(index == QuizData.correct)
                         }) {
                             Text(QuizData.answer[index])
+                                .frame(width: 200,height: 50)
                                 .foregroundColor(.white)
                                 .padding()
                                 .background(Color.blue)
                                 .cornerRadius(10)
                         }
-                        .padding()
-                }
+                        .padding()                }
                 }else{
                     HStack {
                         Spacer()
@@ -61,7 +62,7 @@ struct QuizView:View{
 
 struct flowView : View {
     @State var currentIndex = 0
-    @State var quiz : [Quiz] = OpenQuiz
+    var quiz : [Quiz] = OpenQuiz.shuffled()
     @State private var showingSheet = false
     var body: some View{
         if currentIndex < quiz.count{
@@ -72,6 +73,7 @@ struct flowView : View {
                     showingSheet = true
                 }
                 }
+            .navigationBarBackButtonHidden(true)
             .sheet(isPresented:$showingSheet){
                 WrongView(QuizData:quiz[currentIndex])
             }
@@ -79,6 +81,12 @@ struct flowView : View {
             Text("終了")
                 .font(.title)
                 .padding()
+//            Button(action:{
+//                StartView()
+//            }){
+//                Text("ホームに戻る")
+//                    .font(.title)
+//            }
         }
     }
 }
@@ -87,20 +95,36 @@ struct flowView : View {
 struct WrongView:View{
     let QuizData : Quiz
     var body: some View{
-        VStack{
             VStack{
+                Spacer()
                 Text("不正解")
-                    .font(.title)
+                    .font(.largeTitle)
+                    .foregroundColor(.red)
                 Spacer()
                 Text("\(QuizData.commentary)")
                     .font(.title3)
+                    .padding()
                 Spacer()
             }
-        }
     }
 }
 
-//func delay(number:Int) -> Int{
-//    var nextnumber = number + 1
-//    return nextnumber
-//}
+struct StartView:View{
+    
+    var body: some View{
+        VStack{
+            Spacer()
+            Text("オープンウォータライセンス\nクイズ")
+                .multilineTextAlignment(.center)
+                .font(.title)
+            Spacer()
+            NavigationLink(destination: flowView()){
+                HStack {
+                    Image(systemName: "play.circle")
+                    Text("START")
+                }.font(.title)
+            }
+            Spacer()
+        }
+    }
+}

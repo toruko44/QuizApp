@@ -9,23 +9,9 @@ import SwiftUI
 
 //最初の画面
 struct ContentView: View {
-    //let QuizData = QuizDataOriginal.shuffled()
     var body: some View{
         NavigationView{
-            VStack{
-                Spacer()
-                Text("オープンウォータライセンス\nクイズ")
-                    .multilineTextAlignment(.center)
-                    .font(.title)
-                Spacer()
-                NavigationLink(destination: flowView()){
-                    HStack {
-                        Image(systemName: "play.circle")
-                        Text("START")
-                    }.font(.title)
-                }
-                Spacer()
-            }
+            StartView()
         }
     }
 }
